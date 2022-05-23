@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Digits;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -24,14 +24,14 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
+    @Min(value = 1, message = "The code must be input")
     private int code;
 
     @NotNull(message = "Name cannot be null")
     @NotEmpty
     @NotBlank
     private String design;
-
+    
     @Pattern(regexp="\\d+")    
     private String accountNumber;
     

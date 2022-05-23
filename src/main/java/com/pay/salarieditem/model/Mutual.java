@@ -19,7 +19,7 @@ public class Mutual {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
+    @Min(value = 1, message = "The code must be input")
     private int code;
 
     @NotNull(message = "Name cannot be null")
