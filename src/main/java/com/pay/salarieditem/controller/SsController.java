@@ -27,8 +27,8 @@ public class SsController {
     @Autowired
     private SsBusiness ssBusiness;
 
-    private String ssNotFound = "Ss not found"; 
-    private String ssNotSaved = "Ss not saved";
+    private String ssNotFound = "SS not found"; 
+    private String ssNotSaved = "SS not saved";
 
     @GetMapping(value = "/SalariedItem/Ss/getSssOfOrganism/{idOrganism}")
     public List<SS> getSssOfOrganism(@PathVariable("idOrganism") int idOrganism) {
