@@ -30,7 +30,7 @@ public class MutualController {
     private String mutualNotFound = "Mutual not found"; 
     private String mutualNotSaved = "Mutual not saved";
 
-    @GetMapping(value = "/SalariedItem/Mutual/getMutualsOfOrganism/{idOrganism}")
+    @GetMapping(value = "/SalariedItem/Mutual/All/{idOrganism}")
     public List<Mutual> getMutualsOfOrganism(@PathVariable("idOrganism") int idOrganism) {
         List<Mutual> mutuals = mutualBusiness.findMutualByOrganism(idOrganism);
         if (mutuals.isEmpty()) {
@@ -40,7 +40,7 @@ public class MutualController {
 
     }
 
-    @PostMapping(value = "/SalariedItem/Mutual/create")
+    @PostMapping(value = "/SalariedItem/Mutual/Create")
     public ResponseEntity<Mutual> createMutual(@RequestBody Mutual mutual) {
         try {
             Mutual mutual1 = mutualBusiness.createMutual(mutual);
@@ -51,7 +51,7 @@ public class MutualController {
 
     }
 
-    @PutMapping(value = "/SalariedItem/Mutual/update/{idMutual}")
+    @PutMapping(value = "/SalariedItem/Mutual/Update/{idMutual}")
     public ResponseEntity<Mutual> upDateMutual(@PathVariable("idMutual") int idMutual,
             @RequestBody Mutual mutual) {
 
@@ -74,7 +74,7 @@ public class MutualController {
 
     }
 
-    @DeleteMapping(value = "/SalariedItem/Mutual/delete/{idMutual}")
+    @DeleteMapping(value = "/SalariedItem/Mutual/Delete/{idMutual}")
 
     public ResponseEntity<Boolean> deleteMutual(@PathVariable("idMutual") int idMutual) {
 

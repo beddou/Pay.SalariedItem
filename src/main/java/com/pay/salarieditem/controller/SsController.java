@@ -27,10 +27,10 @@ public class SsController {
     @Autowired
     private SsBusiness ssBusiness;
 
-    private String ssNotFound = "SS not found"; 
+    private String ssNotFound = "SS not found";
     private String ssNotSaved = "SS not saved";
 
-    @GetMapping(value = "/SalariedItem/Ss/getSssOfOrganism/{idOrganism}")
+    @GetMapping(value = "/SalariedItem/Ss/All/{idOrganism}")
     public List<SS> getSssOfOrganism(@PathVariable("idOrganism") int idOrganism) {
         List<SS> Sss = ssBusiness.findSsByOrganism(idOrganism);
         if (Sss.isEmpty()) {
@@ -40,18 +40,18 @@ public class SsController {
 
     }
 
-    @PostMapping(value = "/SalariedItem/Ss/create")
+    @PostMapping(value = "/SalariedItem/Ss/Create")
     public ResponseEntity<SS> createSs(@RequestBody SS ss) {
         try {
             SS ss1 = ssBusiness.createSs(ss);
-            return new ResponseEntity<>(ss1 , HttpStatus.CREATED);
+            return new ResponseEntity<>(ss1, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new NoEntityAddedException(ssNotSaved);
         }
 
     }
 
-    @PutMapping(value = "/SalariedItem/Ss/update/{idSs}")
+    @PutMapping(value = "/SalariedItem/Ss/Update/{idSs}")
     public ResponseEntity<SS> upDateSs(@PathVariable("idSs") int idSs,
             @RequestBody SS ss) {
 
@@ -74,17 +74,16 @@ public class SsController {
 
     }
 
-    @DeleteMapping(value = "/SalariedItem/Ss/delete/{idSs}")
+    @DeleteMapping(value = "/SalariedItem/Ss/Delete/{idSs}")
 
     public ResponseEntity<Boolean> deleteSs(@PathVariable("idSs") int idSs) {
 
-        Optional<SS> ss =  ssBusiness.getSs(idSs);
+        Optional<SS> ss = ssBusiness.getSs(idSs);
         if (!ss.isPresent())
             throw new EntityNotFoundException(ssNotFound);
 
-        return new ResponseEntity<>( ssBusiness.deleteSs(idSs), HttpStatus.OK);
+        return new ResponseEntity<>(ssBusiness.deleteSs(idSs), HttpStatus.OK);
 
     }
 
-    
 }

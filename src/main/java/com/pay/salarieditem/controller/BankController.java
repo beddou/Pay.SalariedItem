@@ -27,10 +27,10 @@ public class BankController {
     @Autowired
     private BankBusiness bankBusiness;
 
-    private String bankNotFound = "bank not found"; 
+    private String bankNotFound = "bank not found";
     private String bankNotSaved = "bank not saved";
 
-    @GetMapping(value = "/SalariedItem/Bank/getBanksOfOrganism/{idOrganism}")
+    @GetMapping(value = "/SalariedItem/Bank/All/{idOrganism}")
     public List<Bank> getBanksOfOrganism(@PathVariable("idOrganism") int idOrganism) {
         List<Bank> banks = bankBusiness.findBankByOrganism(idOrganism);
         if (banks.isEmpty()) {
@@ -40,18 +40,18 @@ public class BankController {
 
     }
 
-    @PostMapping(value = "/SalariedItem/Bank/create")
+    @PostMapping(value = "/SalariedItem/Bank/Create")
     public ResponseEntity<Bank> createBank(@RequestBody Bank bank) {
         try {
             Bank bank1 = bankBusiness.createBank(bank);
-            return new ResponseEntity<>(bank1 , HttpStatus.CREATED);
+            return new ResponseEntity<>(bank1, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new NoEntityAddedException(bankNotSaved);
         }
 
     }
 
-    @PutMapping(value = "/SalariedItem/Bank/update/{idBank}")
+    @PutMapping(value = "/SalariedItem/Bank/Update/{idBank}")
     public ResponseEntity<Bank> upDateBank(@PathVariable("idBank") int idBank,
             @RequestBody Bank bank) {
 
@@ -74,17 +74,15 @@ public class BankController {
 
     }
 
-    @DeleteMapping(value = "/SalariedItem/Bank/delete/{idBank}")
+    @DeleteMapping(value = "/SalariedItem/Bank/Delete/{idBank}")
 
     public ResponseEntity<Boolean> deleteBank(@PathVariable("idBank") int idBank) {
 
-        Optional<Bank> bank =  bankBusiness.getBank(idBank);
+        Optional<Bank> bank = bankBusiness.getBank(idBank);
         if (!bank.isPresent())
             throw new EntityNotFoundException(bankNotFound);
 
-        return new ResponseEntity<>( bankBusiness.deleteBank(idBank), HttpStatus.OK);
+        return new ResponseEntity<>(bankBusiness.deleteBank(idBank), HttpStatus.OK);
 
     }
-
-    
 }

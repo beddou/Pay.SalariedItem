@@ -50,7 +50,7 @@ public class BankBusiness {
         if (bank.getMandateModel() != null)
             bank1.setMandateModel(bank.getMandateModel());
 
-        System.out.println(bank1.toString());
+       
         return bankRepository.save(bank1);
 
     }
