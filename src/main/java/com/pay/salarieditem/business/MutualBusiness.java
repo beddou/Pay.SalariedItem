@@ -68,14 +68,13 @@ public class MutualBusiness {
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
                 .exchange(ressourceUrl + "/existByMutual/" + idMutual, HttpMethod.GET, httpEntity, Boolean.class);
-        if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value())
-            if (responseEntity.hasBody())
-                if (responseEntity.getBody().booleanValue()) {
-
-                    mutualRepository.deleteById(idMutual);
-                    succes = true;
-
-                }
+        if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
+            boolean response = responseEntity.getBody();
+            if (response) {
+                mutualRepository.deleteById(idMutual);
+                succes = true;
+            }
+        }
 
         return succes;
 

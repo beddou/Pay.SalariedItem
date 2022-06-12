@@ -69,14 +69,13 @@ public class SsBusiness {
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
                 .exchange(ressourceUrl + "/existBySs/" + idSs, HttpMethod.GET, httpEntity, Boolean.class);
-        if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value())
-            if (responseEntity.hasBody())
-                if (responseEntity.getBody().booleanValue()) {
-
-                    ssRepository.deleteById(idSs);
-                    succes = true;
-
-                }
+        if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
+            boolean response = responseEntity.getBody();
+            if (response) {
+                ssRepository.deleteById(idSs);
+                succes = true;
+            }
+        }
 
         return succes;
 

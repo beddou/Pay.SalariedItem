@@ -68,14 +68,14 @@ public class BankBusiness {
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
                 .exchange(ressourceUrl + "/existByBank/" + idBank, HttpMethod.GET, httpEntity, Boolean.class);
-        if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value())
-            if (responseEntity.hasBody())
-                if (responseEntity.getBody().booleanValue()) {
+        if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
+            boolean response = responseEntity.getBody();
+            if (response) {
+                bankRepository.deleteById(idBank);
+                succes = true;
+            }
 
-                    bankRepository.deleteById(idBank);
-                    succes = true;
-
-                }
+        }
 
         return succes;
 
