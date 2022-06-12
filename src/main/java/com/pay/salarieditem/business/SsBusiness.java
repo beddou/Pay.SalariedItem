@@ -35,22 +35,26 @@ public class SsBusiness {
 
     public SS updateSs(int id, SS ss) {
 
-        SS ss1 = ssRepository.findById(id).get();
+        Optional<SS> ss1 = ssRepository.findById(id);
+        SS ss2 = new SS();
+        if (ss1.isPresent()) {
+            ss2 = ss1.get();
+            if (ss.getCode() > 0)
+                ss2.setCode(ss.getCode());
 
-        if (ss.getCode() > 0)
-            ss1.setCode(ss.getCode());
+            if (ss.getDesign() != null && !ss.getDesign().equals("") && !ss.getDesign().trim().equals(""))
+                ss2.setDesign(ss.getDesign());
 
-        if (ss.getDesign() != null && !ss.getDesign().equals("") && !ss.getDesign().trim().equals(""))
-            ss1.setDesign(ss.getDesign());
+            if (ss.getAccountNumber() != null && !ss.getAccountNumber().equals("")
+                    && !ss.getAccountNumber().trim().equals(""))
+                ss2.setAccountNumber(ss.getAccountNumber());
 
-        if (ss.getAccountNumber() != null && !ss.getAccountNumber().equals("")
-                && !ss.getAccountNumber().trim().equals(""))
-            ss1.setAccountNumber(ss.getAccountNumber());
+            if (ss.getBank() != null && !ss.getBank().equals("") && !ss.getBank().trim().equals(""))
+                ss2.setBank(ss.getBank());
 
-        if (ss.getBank() != null && !ss.getBank().equals("") && !ss.getBank().trim().equals(""))
-            ss1.setBank(ss.getBank());
+        }
 
-        return ssRepository.save(ss1);
+        return ssRepository.save(ss2);
 
     }
 
@@ -64,7 +68,7 @@ public class SsBusiness {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
-                .exchange(ressourceUrl+"/existBySs/" + idSs, HttpMethod.GET, httpEntity, Boolean.class);
+                .exchange(ressourceUrl + "/existBySs/" + idSs, HttpMethod.GET, httpEntity, Boolean.class);
         if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value())
             if (responseEntity.hasBody())
                 if (responseEntity.getBody().booleanValue()) {

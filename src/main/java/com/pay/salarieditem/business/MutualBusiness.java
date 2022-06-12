@@ -35,22 +35,25 @@ public class MutualBusiness {
 
     public Mutual updateMutual(int id, Mutual mutual) {
 
-        Mutual mutual1 = mutualRepository.findById(id).get();
+        Optional<Mutual> mutual1 = mutualRepository.findById(id);
+        Mutual mutual2 = new Mutual();
+        if (mutual1.isPresent()) {
+            mutual2 = mutual1.get();
+            if (mutual.getCode() > 0)
+                mutual2.setCode(mutual.getCode());
 
-        if (mutual.getCode() > 0)
-            mutual1.setCode(mutual.getCode());
-            
-        if (mutual.getDesign() != null && !mutual.getDesign().equals("") && !mutual.getDesign().trim().equals(""))
-            mutual1.setDesign(mutual.getDesign());
+            if (mutual.getDesign() != null && !mutual.getDesign().equals("") && !mutual.getDesign().trim().equals(""))
+                mutual2.setDesign(mutual.getDesign());
 
-        if (mutual.getAccountNumber() != null && !mutual.getAccountNumber().equals("")
-                && !mutual.getAccountNumber().trim().equals(""))
-            mutual1.setAccountNumber(mutual.getAccountNumber());
+            if (mutual.getAccountNumber() != null && !mutual.getAccountNumber().equals("")
+                    && !mutual.getAccountNumber().trim().equals(""))
+                mutual2.setAccountNumber(mutual.getAccountNumber());
 
-        if (mutual.getBank() != null && !mutual.getBank().equals("") && !mutual.getBank().trim().equals(""))
-            mutual1.setBank(mutual.getBank());
+            if (mutual.getBank() != null && !mutual.getBank().equals("") && !mutual.getBank().trim().equals(""))
+                mutual2.setBank(mutual.getBank());
+        }
 
-        return mutualRepository.save(mutual1);
+        return mutualRepository.save(mutual2);
 
     }
 
@@ -64,7 +67,7 @@ public class MutualBusiness {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
-                .exchange(ressourceUrl+"/existByMutual/" + idMutual, HttpMethod.GET, httpEntity, Boolean.class);
+                .exchange(ressourceUrl + "/existByMutual/" + idMutual, HttpMethod.GET, httpEntity, Boolean.class);
         if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value())
             if (responseEntity.hasBody())
                 if (responseEntity.getBody().booleanValue()) {
