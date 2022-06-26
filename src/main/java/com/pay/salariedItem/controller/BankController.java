@@ -1,12 +1,7 @@
-package com.pay.salarieditem.controller;
+package com.pay.salariedItem.controller;
 
 import java.util.List;
 import java.util.Optional;
-
-import com.pay.salarieditem.business.BankBusiness;
-import com.pay.salarieditem.exception.EntityNotFoundException;
-import com.pay.salarieditem.exception.NoEntityAddedException;
-import com.pay.salarieditem.model.Bank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.pay.salariedItem.business.BankBusiness;
+import com.pay.salariedItem.exception.EntityNotFoundException;
+import com.pay.salariedItem.exception.NoEntityAddedException;
+import com.pay.salariedItem.model.Bank;
 
 @CrossOrigin(origins = "*")
 @RestController

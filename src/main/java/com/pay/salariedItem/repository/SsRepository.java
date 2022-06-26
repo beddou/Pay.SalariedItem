@@ -1,11 +1,11 @@
-package com.pay.salarieditem.repository;
+package com.pay.salariedItem.repository;
 
 import java.util.List;
 
-import com.pay.salarieditem.model.SS;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.pay.salariedItem.model.SS;
 
 @Repository
 public interface SsRepository extends JpaRepository<SS, Integer> {

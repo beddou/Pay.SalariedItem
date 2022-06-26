@@ -1,4 +1,4 @@
-package com.pay.salarieditem.model;
+package com.pay.salariedItem.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

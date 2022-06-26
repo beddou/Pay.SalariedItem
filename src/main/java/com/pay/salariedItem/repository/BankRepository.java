@@ -1,11 +1,11 @@
-package com.pay.salarieditem.repository;
+package com.pay.salariedItem.repository;
 
 import java.util.List;
 
-import com.pay.salarieditem.model.Bank;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.pay.salariedItem.model.Bank;
 
 @Repository
 public interface BankRepository extends JpaRepository<Bank, Integer>{

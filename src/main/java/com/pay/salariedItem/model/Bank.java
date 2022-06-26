@@ -1,20 +1,25 @@
-package com.pay.salarieditem.model;
+package com.pay.salariedItem.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.pay.salariedItem.model.tools.MandateModel;
+
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueSS", columnNames = { "organism", "code" }) })
-public class SS {
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueBank", columnNames = { "organism", "code" }) })
+public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,14 +31,23 @@ public class SS {
     @NotEmpty
     @NotBlank
     private String design;
-
-    @Pattern(regexp="\\d+") 
+    
+    @Pattern(regexp="\\d+")    
     private String accountNumber;
     
-    private String bank;
+    @Enumerated(EnumType.STRING)
+    private MandateModel mandateModel;
 
     @Min(value = 1, message = "The organism must be input")
     private int organism;
+
+    
+
+    @Override
+    public String toString() {
+        return "Bank [accountNumber=" + accountNumber + ", code=" + code + ", design=" + design + ", id=" + id
+                + ", mandateModel=" + mandateModel + ", organism=" + organism + "]";
+    }
 
     public int getId() {
         return id;
@@ -67,12 +81,12 @@ public class SS {
         this.accountNumber = accountNumber;
     }
 
-    public String getBank() {
-        return bank;
+    public MandateModel getMandateModel() {
+        return mandateModel;
     }
 
-    public void setBank(String bank) {
-        this.bank = bank;
+    public void setMandateModel(MandateModel mandateType) {
+        this.mandateModel = mandateType;
     }
 
     public int getOrganism() {
@@ -83,6 +97,6 @@ public class SS {
         this.organism = organism;
     }
 
-    
-    
+
+
 }

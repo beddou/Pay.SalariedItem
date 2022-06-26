@@ -1,4 +1,4 @@
-package com.pay.salarieditem.exception;
+package com.pay.salariedItem.exception;
 
 
 import org.springframework.http.HttpStatus;
