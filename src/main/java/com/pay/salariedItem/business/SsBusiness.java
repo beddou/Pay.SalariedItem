@@ -64,7 +64,7 @@ public class SsBusiness {
 
     public boolean deleteSs(int idSs) {
 
-        boolean succes = false;
+        boolean success = false;
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
@@ -72,12 +72,17 @@ public class SsBusiness {
         if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
             boolean response = responseEntity.getBody();
             if (response) {
-                ssRepository.deleteById(idSs);
-                succes = true;
+                try {
+                    ssRepository.deleteById(idSs);
+                    success = true;
+                } catch (Exception e) {
+                    success = false;
+                }
+
             }
         }
 
-        return succes;
+        return success;
 
     }
 

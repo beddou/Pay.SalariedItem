@@ -71,8 +71,13 @@ public class MutualBusiness {
         if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
             boolean response = responseEntity.getBody();
             if (response) {
-                mutualRepository.deleteById(idMutual);
-                succes = true;
+                try {
+                    mutualRepository.deleteById(idMutual);
+                    succes = true;
+                } catch (Exception e) {
+                    succes = false;
+                }
+
             }
         }
 

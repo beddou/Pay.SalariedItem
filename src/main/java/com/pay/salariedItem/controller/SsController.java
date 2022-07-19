@@ -76,11 +76,7 @@ public class SsController {
 
     @DeleteMapping(value = "/SalariedItem/Ss/Delete/{idSs}")
 
-    public ResponseEntity<Boolean> deleteSs(@PathVariable("idSs") int idSs) {
-
-        Optional<SS> ss = ssBusiness.getSs(idSs);
-        if (!ss.isPresent())
-            throw new EntityNotFoundException(ssNotFound);
+    public ResponseEntity<Boolean> deleteSs(@PathVariable("idSs") int idSs) {        
 
         return new ResponseEntity<>(ssBusiness.deleteSs(idSs), HttpStatus.OK);
 

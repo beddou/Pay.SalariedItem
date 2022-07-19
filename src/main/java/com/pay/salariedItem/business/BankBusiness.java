@@ -71,8 +71,13 @@ public class BankBusiness {
         if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
             boolean response = responseEntity.getBody();
             if (response) {
-                bankRepository.deleteById(idBank);
-                succes = true;
+                try {
+                    bankRepository.deleteById(idBank);
+                    succes = true;
+                } catch (Exception e) {
+                    succes = false;
+                }
+
             }
 
         }

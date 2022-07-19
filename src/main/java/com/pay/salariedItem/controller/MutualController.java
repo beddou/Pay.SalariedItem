@@ -77,11 +77,7 @@ public class MutualController {
     @DeleteMapping(value = "/SalariedItem/Mutual/Delete/{idMutual}")
 
     public ResponseEntity<Boolean> deleteMutual(@PathVariable("idMutual") int idMutual) {
-
-        Optional<Mutual> mutual =  mutualBusiness.getMutual(idMutual);
-        if (!mutual.isPresent())
-            throw new EntityNotFoundException(mutualNotFound);
-
+        
         return new ResponseEntity<>( mutualBusiness.deleteMutual(idMutual), HttpStatus.OK);
 
     }
