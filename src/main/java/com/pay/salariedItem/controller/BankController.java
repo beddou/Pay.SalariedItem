@@ -30,6 +30,17 @@ public class BankController {
     private String bankNotFound = "bank not found";
     private String bankNotSaved = "bank not saved";
 
+    @GetMapping(value = "/SalariedItem/Bank/Get/{idBank}")
+    public ResponseEntity<Bank> getBank(@PathVariable("idBank") int idBank) {
+        Optional<Bank> bank = bankBusiness.getBank(idBank);
+        if (bank.isPresent())
+            return new ResponseEntity<>(bank.get(), HttpStatus.OK);
+
+        else
+            throw new EntityNotFoundException(bankNotFound);
+
+    }
+
     @GetMapping(value = "/SalariedItem/Bank/All/{idOrganism}")
     public List<Bank> getBanksOfOrganism(@PathVariable("idOrganism") int idOrganism) {
         List<Bank> banks = bankBusiness.findBankByOrganism(idOrganism);
@@ -76,7 +87,7 @@ public class BankController {
 
     @DeleteMapping(value = "/SalariedItem/Bank/Delete/{idBank}")
 
-    public ResponseEntity<Boolean> deleteBank(@PathVariable("idBank") int idBank) {        
+    public ResponseEntity<Boolean> deleteBank(@PathVariable("idBank") int idBank) {
 
         return new ResponseEntity<>(bankBusiness.deleteBank(idBank), HttpStatus.OK);
 

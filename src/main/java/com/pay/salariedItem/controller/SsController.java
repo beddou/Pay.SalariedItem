@@ -30,6 +30,16 @@ public class SsController {
     private String ssNotFound = "SS not found";
     private String ssNotSaved = "SS not saved";
 
+    @GetMapping(value = "/SalariedItem/Ss/Get/{idSs}")
+    public ResponseEntity<SS> getSs(@PathVariable("idSs") int idSs) {
+        Optional<SS> ss = ssBusiness.getSs(idSs);
+        if (ss.isPresent())
+            return new ResponseEntity<>(ss.get(), HttpStatus.OK);
+        else
+            throw new EntityNotFoundException(ssNotFound);
+
+    }
+
     @GetMapping(value = "/SalariedItem/Ss/All/{idOrganism}")
     public List<SS> getSssOfOrganism(@PathVariable("idOrganism") int idOrganism) {
         List<SS> Sss = ssBusiness.findSsByOrganism(idOrganism);

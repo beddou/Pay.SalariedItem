@@ -27,8 +27,18 @@ public class MutualController {
     @Autowired
     private MutualBusiness mutualBusiness;
 
-    private String mutualNotFound = "Mutual not found"; 
+    private String mutualNotFound = "Mutual not found";
     private String mutualNotSaved = "Mutual not saved";
+
+    @GetMapping(value = "/SalariedItem/Mutual/Get/{idMutual}")
+    public ResponseEntity<Mutual> getMutual(@PathVariable("idMutual") int idMutual) {
+        Optional<Mutual> mutual = mutualBusiness.getMutual(idMutual);
+        if (mutual.isPresent())
+            return new ResponseEntity<>(mutual.get(), HttpStatus.OK);
+        else
+            throw new EntityNotFoundException(mutualNotFound);
+
+    }
 
     @GetMapping(value = "/SalariedItem/Mutual/All/{idOrganism}")
     public List<Mutual> getMutualsOfOrganism(@PathVariable("idOrganism") int idOrganism) {
@@ -44,7 +54,7 @@ public class MutualController {
     public ResponseEntity<Mutual> createMutual(@RequestBody Mutual mutual) {
         try {
             Mutual mutual1 = mutualBusiness.createMutual(mutual);
-            return new ResponseEntity<>(mutual1 , HttpStatus.CREATED);
+            return new ResponseEntity<>(mutual1, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new NoEntityAddedException(mutualNotSaved);
         }
@@ -77,10 +87,9 @@ public class MutualController {
     @DeleteMapping(value = "/SalariedItem/Mutual/Delete/{idMutual}")
 
     public ResponseEntity<Boolean> deleteMutual(@PathVariable("idMutual") int idMutual) {
-        
-        return new ResponseEntity<>( mutualBusiness.deleteMutual(idMutual), HttpStatus.OK);
+
+        return new ResponseEntity<>(mutualBusiness.deleteMutual(idMutual), HttpStatus.OK);
 
     }
 
-    
 }
