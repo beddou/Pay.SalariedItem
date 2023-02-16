@@ -12,59 +12,59 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.pay.salariedItem.model.Mutual;
-import com.pay.salariedItem.repository.MutualRepository;
+import com.pay.salariedItem.model.Assurance;
+import com.pay.salariedItem.repository.AssuranceRepository;
 
 @Service
-public class MutualBusiness {
+public class AssuranceBusiness {
 
     @Autowired
-    private MutualRepository mutualRepository;
+    private AssuranceRepository assuranceRepository;
 
     @Value("${SalariedUrl}")
     private String ressourceUrl;
 
-    public List<Mutual> findMutualByOrganism(int idOrganism) {
-        return mutualRepository.findByOrganism(idOrganism);
+    public List<Assurance> findAssuranceByOrganism(int idOrganism) {
+        return assuranceRepository.findByOrganism(idOrganism);
 
     }
 
-    public Optional<Mutual> getMutual(int id) {
-        return mutualRepository.findById(id);
+    public Optional<Assurance> getAssurance(int id) {
+        return assuranceRepository.findById(id);
     }
 
-    public Mutual updateMutual(int id, Mutual mutual) {
+    public Assurance updateAssurance(int id, Assurance assurance) {
 
-        mutual.setId(id);
-        return mutualRepository.save(mutual);
+        assurance.setId(id);
+        return assuranceRepository.save(assurance);
 
     }
 
-    public Mutual createMutual(Mutual mutual) {
-        return mutualRepository.save(mutual);
+    public Assurance createAssurance(Assurance assurance) {
+        return assuranceRepository.save(assurance);
     }
 
-    public boolean deleteMutual(int idMutual) {
+    public boolean deleteAssurance(int idAssurance) {
 
-        boolean succes = false;
+        boolean success = false;
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> httpEntity = HttpEntity.EMPTY;
         ResponseEntity<Boolean> responseEntity = restTemplate
-                .exchange(ressourceUrl + "/existByMutual/" + idMutual, HttpMethod.GET, httpEntity, Boolean.class);
+                .exchange(ressourceUrl + "/existByAssurance/" + idAssurance, HttpMethod.GET, httpEntity, Boolean.class);
         if (responseEntity.getStatusCodeValue() == HttpStatus.OK.value() && responseEntity.hasBody()) {
             boolean response = responseEntity.getBody();
             if (response) {
                 try {
-                    mutualRepository.deleteById(idMutual);
-                    succes = true;
+                    assuranceRepository.deleteById(idAssurance);
+                    success = true;
                 } catch (Exception e) {
-                    succes = false;
+                    success = false;
                 }
 
             }
         }
 
-        return succes;
+        return success;
 
     }
 

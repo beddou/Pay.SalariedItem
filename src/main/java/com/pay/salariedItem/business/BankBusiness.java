@@ -35,25 +35,8 @@ public class BankBusiness {
 
     public Bank updateBank(int id, Bank bank) {
 
-        Optional<Bank> bank1 = bankRepository.findById(id);
-        Bank bank2 = new Bank();
-        if (bank1.isPresent()) {
-            bank2 = bank1.get();
-            if (bank.getCode() > 0)
-                bank2.setCode(bank.getCode());
-
-            if (bank.getDesign() != null && !bank.getDesign().equals("") && !bank.getDesign().trim().equals(""))
-                bank2.setDesign(bank.getDesign());
-
-            if (bank.getAccountNumber() != null && !bank.getAccountNumber().equals("")
-                    && !bank.getAccountNumber().trim().equals(""))
-                bank2.setAccountNumber(bank.getAccountNumber());
-
-            if (bank.getMandateModel() != null)
-                bank2.setMandateModel(bank.getMandateModel());
-        }
-
-        return bankRepository.save(bank2);
+       bank.setId(id);        
+       return bankRepository.save(bank);
 
     }
 
