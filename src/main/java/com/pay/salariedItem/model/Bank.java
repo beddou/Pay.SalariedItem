@@ -18,7 +18,8 @@ import javax.validation.constraints.Pattern;
 import com.pay.salariedItem.model.tools.MandateModel;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueBank", columnNames = { "organism", "code" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueCode", columnNames = { "organism", "code" }),
+@UniqueConstraint(name = "UniqueDesign", columnNames = { "organism", "design" }) })
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

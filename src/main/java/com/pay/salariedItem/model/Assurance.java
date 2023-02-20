@@ -13,7 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueAssurance", columnNames = { "organism", "code" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueCode", columnNames = { "organism", "code" }),
+@UniqueConstraint(name = "UniqueDesign", columnNames = { "organism", "design" }) })
 public class Assurance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
